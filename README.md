@@ -1,8 +1,8 @@
 # SSMLBuilder
 Yet another SSML Builder, that uses the Razor Engine to render the SSML output
 
-[![Build status master](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3?svg=true&passingText=master%20-%20passing&failingText=master%20-%20failing&pendingText=master%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLVerifier) 
-[![Build status dev](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3/branch/dev?svg=true&passingText=dev%20-%20passing&failingText=dev%20-%20failing&pendingText=dev%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLVerifier/branch/dev)
+[![Build status master](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3?svg=true&passingText=master%20-%20passing&failingText=master%20-%20failing&pendingText=master%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLBuilder) 
+[![Build status dev](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3/branch/dev?svg=true&passingText=dev%20-%20passing&failingText=dev%20-%20failing&pendingText=dev%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLBuilder/branch/dev)
 [![NuGet version](https://badge.fury.io/nu/SSMLBuilder.svg)](https://badge.fury.io/nu/SSMLBuilder)
 
 ## Why did I create this builder?
