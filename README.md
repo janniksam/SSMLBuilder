@@ -93,7 +93,7 @@ The result in this example will look like this:
 </speak>
 ```  
 
-I used a dynamic model in this example. Feel free whatever type you like.
+I used a dynamic model in this example. Feel free to use whatever type you like.
 
 ## Verification
 
