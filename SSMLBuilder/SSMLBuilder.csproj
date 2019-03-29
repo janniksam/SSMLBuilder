@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Title>SSML Builder</Title>
-    <Description>SSMLVerifier will verify that a given input is valid SSML.</Description>
+    <Description>SSML Builder uses the powerful razor engine to create Speech Synthesis Markup Language (SSML)</Description>
     <Authors>janniksam</Authors>
     <Company>janniksam</Company>
     <PackageProjectUrl>https://github.com/janniksam/SSMLBuilder</PackageProjectUrl>
