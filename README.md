@@ -11,6 +11,10 @@ Personally, I don't like coding down stuff in an imperative manner, when it come
 
 Since SSML is more or less XML with a fixed subset of tags, I figured, why not try to build my SSML Builder using the powerful Razor Engine
 
+## Special thanks to
+
+I would like to thank Antaris and all those who took part in the development of the RazorEngine implementation that I am basing this builder on. For more information, go and visit: https://github.com/Antaris/RazorEngine/ 
+
 ## How does it work?
 
 Basically, you first have to build a .cshtml-View we know from ASP.NET application. That view will later be compiled into the SSML.
