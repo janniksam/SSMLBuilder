@@ -63,7 +63,7 @@ When you finished, you can throw the view into the builder, append a model and f
 var templateKey = "SSMLBuilderTests.SSMLViews.TestView.cshtml";
 var assembly = GetType().GetTypeInfo().Assembly;
 var resource = assembly.GetManifestResourceStream(templateKey);
-var ssmlResult = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Gamme { PlayerAmount = 5 });
+var ssmlResult = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = 5 });
 ```  
 
 The result in this example will look like this:
