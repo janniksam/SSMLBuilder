@@ -1,7 +1,8 @@
 # SSMLBuilder
 Yet another SSML Builder, that uses the Razor Engine to render the SSML output
 
-[![Build status master](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3?svg=true&passingText=master%20-%20passing&failingText=master%20-%20failing&pendingText=master%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLVerifier) 
+[![Build status master](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3?svg=true&passingText=master%20-%20passing&failingText=master%20-%20failing&pendingText=master%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLBuilder) 
+[![Build status dev](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3/branch/dev?svg=true&passingText=dev%20-%20passing&failingText=dev%20-%20failing&pendingText=dev%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLBuilder/branch/dev)
 [![NuGet version](https://badge.fury.io/nu/SSMLBuilder.svg)](https://badge.fury.io/nu/SSMLBuilder)
 
 ## Why did I create this builder?
@@ -10,6 +11,10 @@ Personally, I don't like coding down stuff in an imperative manner, when it come
 
 Since SSML is more or less XML with a fixed subset of tags, I figured, why not try to build my SSML Builder using the powerful Razor Engine
 
+## Special thanks to
+
+I would like to thank Antaris and all those who took part in the development of the RazorEngine implementation that I am basing this builder on. For more information, go and visit: https://github.com/Antaris/RazorEngine/ 
+
 ## How does it work?
 
 Basically, you first have to build a .cshtml-View we know from ASP.NET application. That view will later be compiled into the SSML.
@@ -17,7 +22,8 @@ Basically, you first have to build a .cshtml-View we know from ASP.NET applicati
 Here is a simple example:
 
 ```xml
-@inherits RazorLight.TemplatePage<SSMLBuilderTests.Game>
+@using RazorEngine.Templating
+@inherits TemplateBase<dynamic>
 <speak>
     <p>
         The clock is ticking down
@@ -59,7 +65,7 @@ When you finished, you can throw the view into the builder, append a model and f
 var templateKey = "SSMLBuilderTests.SSMLViews.TestView.cshtml";
 var assembly = GetType().GetTypeInfo().Assembly;
 var resource = assembly.GetManifestResourceStream(templateKey);
-var ssmlResult = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = 5 });
+var ssmlResult = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new { PlayerAmount = 5 });
 ```  
 
 The result in this example will look like this:
@@ -86,6 +92,8 @@ The result in this example will look like this:
     </p>
 </speak>
 ```  
+
+I used a dynamic model in this example. Feel free to use whatever type you like.
 
 ## Verification
 
