@@ -2,7 +2,6 @@
 Yet another SSML Builder, that uses the Razor Engine to render the SSML output
 
 [![Build status master](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3?svg=true&passingText=master%20-%20passing&failingText=master%20-%20failing&pendingText=master%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLBuilder) 
-[![Build status dev](https://ci.appveyor.com/api/projects/status/ncsfmp2cixpgc9m3/branch/dev?svg=true&passingText=dev%20-%20passing&failingText=dev%20-%20failing&pendingText=dev%20-%20pending)](https://ci.appveyor.com/project/janniksam/SSMLBuilder/branch/dev)
 [![NuGet version](https://badge.fury.io/nu/SSMLBuilder.svg)](https://badge.fury.io/nu/SSMLBuilder)
 
 ## Why did I create this builder?
@@ -13,7 +12,7 @@ Since SSML is more or less XML with a fixed subset of tags, I figured, why not t
 
 ## Special thanks to
 
-I would like to thank Antaris and all those who took part in the development of the RazorEngine implementation that I am basing this builder on. For more information, go and visit: https://github.com/Antaris/RazorEngine/ 
+I would like to thank @toddams and all those who took part in the development of the RazorLight implementation that I am basing this builder on. For more information, go and visit: https://github.com/toddams/RazorLight 
 
 ## How does it work?
 
@@ -22,8 +21,7 @@ Basically, you first have to build a .cshtml-View we know from ASP.NET applicati
 Here is a simple example:
 
 ```xml
-@using RazorEngine.Templating
-@inherits TemplateBase<dynamic>
+@inherits RazorLight.TemplatePage<My.Namespace.Game>
 <speak>
     <p>
         The clock is ticking down
@@ -65,7 +63,7 @@ When you finished, you can throw the view into the builder, append a model and f
 var templateKey = "SSMLBuilderTests.SSMLViews.TestView.cshtml";
 var assembly = GetType().GetTypeInfo().Assembly;
 var resource = assembly.GetManifestResourceStream(templateKey);
-var ssmlResult = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new { PlayerAmount = 5 });
+var ssmlResult = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Gamme { PlayerAmount = 5 });
 ```  
 
 The result in this example will look like this:
