@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -16,22 +17,22 @@ namespace SSMLBuilderTests
     public class BuilderTests
     {
         [TestMethod]
-        public void ShouldParseCorrectlyString()
+        public async Task ShouldParseCorrectlyString()
         {
-            var input = "Hello @Model.Name, welcome to RazorEngine!";
-            var result = SSMLRazorBuilder.BuildFrom(input, "templateKey1", new {Name = "Bla"});
+            var input = "Hello @Model, welcome to RazorEngine!";
+            var result = await SSMLRazorBuilder.BuildFromAsync(input, "templateKey1", "Bla");
             Assert.AreEqual("Hello Bla, welcome to RazorEngine!", result);
         }
 
         [TestMethod]
         public async Task ShouldParseCorrectlyStream()
         {
-            var input = "Hello @Model.Name, welcome to RazorEngine!";
+            var input = "Hello @Model, welcome to RazorEngine!";
             var byteArray = Encoding.ASCII.GetBytes(input);
             using (var ms = new MemoryStream(byteArray))
             {
-                var result = await SSMLRazorBuilder.BuildFromAsync(ms, "templateKey2", new {Name = "Bla"});
-                Assert.AreEqual("Hello Bla, welcome to RazorEngine!", result);
+                var result = await SSMLRazorBuilder.BuildFromAsync(ms, "templateKey2", "Testuser");
+                Assert.AreEqual("Hello Testuser, welcome to RazorEngine!", result);
             }
         }
 
@@ -41,11 +42,11 @@ namespace SSMLBuilderTests
             var templateKey = "SSMLBuilderTests.SSMLViews.TestView.cshtml";
             var assembly = GetType().GetTypeInfo().Assembly;
             var resource = assembly.GetManifestResourceStream(templateKey);
-            var ssmlResult = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new { PlayerAmount = 5 });
+            var ssmlResult = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = 5 });
 
             var verifier = new Verifier();
             var verificationResult = verifier.Verify(ssmlResult);
-            Assert.AreEqual(VerificationState.Valid, verificationResult.State);
+            Assert.AreEqual(0, verificationResult.Count());
         }
 
         [TestMethod]
@@ -60,11 +61,39 @@ namespace SSMLBuilderTests
                 var templateKey = "SSMLBuilderTests.SSMLViews.TestView.cshtml";
                 var assembly = GetType().GetTypeInfo().Assembly;
                 var resource = assembly.GetManifestResourceStream(templateKey);
-                Task task = SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new {PlayerAmount = 5});
+                Task task = SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = 5 });
                 tasks.Add(task);
             }
 
             await Task.WhenAll(tasks);
+
+            sw.Stop();
+            Assert.IsTrue(sw.ElapsedMilliseconds < 15000);
+        }
+
+        [TestMethod]
+        public async Task CachingWorks()
+        {
+            var sw = new Stopwatch();
+            sw.Start();
+
+            var templateKey = "SSMLBuilderTests.SSMLViews.TestView2.cshtml";
+            var assembly = GetType().GetTypeInfo().Assembly;
+            var resource = assembly.GetManifestResourceStream(templateKey);
+            var result = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = 4 });
+            result = result.Trim();
+            Assert.AreEqual("1", result.Trim());
+
+            resource = assembly.GetManifestResourceStream(templateKey);
+            result = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = 6 });
+            result = result.Trim();
+            Assert.AreEqual("2", result);
+
+            resource = assembly.GetManifestResourceStream(templateKey);
+            result = await SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = 4 });
+            result = result.Trim();
+            Assert.AreEqual("1", result);
+
 
             sw.Stop();
             Assert.IsTrue(sw.ElapsedMilliseconds < 15000);

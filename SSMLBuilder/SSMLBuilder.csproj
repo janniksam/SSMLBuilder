@@ -8,13 +8,13 @@
     <Company>janniksam</Company>
     <PackageProjectUrl>https://github.com/janniksam/SSMLBuilder</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Copyright>Copyright 2019 Â© janniksam</Copyright>
+    <Copyright>Copyright 2019 © janniksam</Copyright>
     <PackageLicenseUrl>https://github.com/janniksam/SSMLBuilder/blob/master/LICENSE</PackageLicenseUrl>
     <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RazorEngine.NetCore" Version="2.2.2" />
+    <PackageReference Include="RazorLight" Version="2.0.0-beta1" />
   </ItemGroup>
 
 </Project>
