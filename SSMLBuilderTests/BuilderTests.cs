@@ -61,7 +61,7 @@ namespace SSMLBuilderTests
                 var templateKey = "SSMLBuilderTests.SSMLViews.TestView.cshtml";
                 var assembly = GetType().GetTypeInfo().Assembly;
                 var resource = assembly.GetManifestResourceStream(templateKey);
-                Task task = SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = 5 });
+                Task task = SSMLRazorBuilder.BuildFromAsync(resource, templateKey, new Game { PlayerAmount = i });
                 tasks.Add(task);
             }
 
