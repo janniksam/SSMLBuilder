@@ -21,7 +21,7 @@ Basically, you first have to build a .cshtml-View we know from ASP.NET applicati
 Here is a simple example:
 
 ```xml
-@inherits RazorLight.TemplatePage<My.Namespace.Game>
+@inherits SSMLBuilder.SSMLPage<SSMLBuilderTests.Game>
 <speak>
     <p>
         The clock is ticking down
